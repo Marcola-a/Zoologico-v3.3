@@ -1,0 +1,95 @@
+================================================================================
+                    SISTEMA DE GERENCIAMENTO DE ZOOLÓGICO (ZOO MANAGER)
+                              Versão 1.0 - Feito com Gemini(o Documento)
+================================================================================
+
+1. APRESENTAÇÃO DO PROJETO
+--------------------------------------------------------------------------------
+Este software foi desenvolvido em Python utilizando a biblioteca Tkinter (com
+estilização via ttkbootstrap) e banco de dados MySQL. O objetivo é fornecer uma
+plataforma intuitiva para o gerenciamento de animais do zoológico, com
+interfaces distintas para Administradores (funcionários) e Visitantes (clientes).
+
+2. PONTOS FORTES E DIFERENCIAIS (DESTAQUES TÉCNICOS)
+--------------------------------------------------------------------------------
+* Design Moderno e Responsivo: Utilização do tema 'litera' do ttkbootstrap,
+  ícones personalizados e background temático, fugindo do visual padrão cinza
+  do Tkinter.
+  
+* Controle de Acesso (RBAC): O sistema diferencia automaticamente o login de
+  ADMINISTRADORES (que veem tabelas de gestão) e USUÁRIOS COMUNS (que veem
+  uma interface visual em tópicos informativos).
+  
+* Segurança:
+  - Senhas ocultas na digitação.
+  - Validação de e-mail direto no banco de dados (CONSTRAINT CHECK).
+  
+* Validação de Dados Robusta: O formulário de cadastro impede entradas vazias
+  e trata erros de conversão de tipos (ex: texto no campo peso) sem fechar
+  o programa inesperadamente.
+
+3. ESTRUTURA DE ARQUIVOS
+--------------------------------------------------------------------------------
+O projeto foi modularizado para facilitar a manutenção e leitura:
+
+[Banco de Dados]
+ - Zoológico.sql .....: Script DDL (Criação do Banco/Tabelas) e DML (Inserts
+                        iniciais). Contém também as DQLs documentadas.
+
+[Código Fonte Python]
+ - login.py ..........: Ponto de entrada (Main). Gerencia a autenticação e
+                        o registro de novos usuários.
+ - conexao.py ........: Gerencia a conexão segura com o MySQL (suporta variáveis
+                        de ambiente).
+ - usuario.py ........: Model (Classe) para operações relacionadas a usuários.
+ - animal.py .........: Model (Classe) para operações CRUD de animais.
+ - dashboard.py ......: Controller da tela principal. Redireciona para a visão
+                        de admin ou cliente.
+ - add_animal.py .....: Janela modal (Pop-up) para cadastro de novos animais.
+
+[Recursos]
+ - img/ ..............: Pasta contendo ícones (.ico) e imagens de fundo (.png).
+ - requisitos.txt ....: Lista de bibliotecas necessárias para rodar o projeto.
+
+4. PRÉ-REQUISITOS E INSTALAÇÃO
+--------------------------------------------------------------------------------
+Certifique-se de ter o Python (3.x) e o MySQL Server instalados.
+
+Passo 1: Instalar dependências Python
+   Abra o terminal na pasta do projeto e execute:
+   > pip install ttkbootstrap mysql-connector-python pillow pywinstyles
+
+Passo 2: Configurar o Banco de Dados
+   Abra seu gerenciador MySQL (Workbench, DBeaver, etc) e execute todo o
+   script contido no arquivo "Zoológico.sql". Isso criará o banco 'zoologico'
+   e as tabelas necessárias.
+
+Passo 3: Configurar Conexão
+   Verifique o arquivo "conexao.py". Se sua senha do MySQL não for padrão,
+   altere a variável de senha ou configure as variáveis de ambiente do SO.
+
+5. GUIA DE USO
+--------------------------------------------------------------------------------
+
+[A] PARA ADMINISTRADORES
+Há o usuário padrão cadastrado: DEV, senha: 1234
+    1. Na tela de Login, entre com as credenciais de admin (criadas via SQL).
+    2. Você verá o "Painel de Controle" com uma tabela completa dos animais.
+    3. Funcionalidades:
+       - Visualizar: Lista paginada e pesquisável de todos os animais ativos.
+       - Adicionar: Clique no botão para abrir o formulário. Preencha os dados
+         (Datas, Peso, Recinto) e salve.
+       - Remover: Selecione um animal e utilize a opção de exclusão (lógica).
+
+[B] PARA VISITANTES (CLIENTES)
+    1. Na tela de Login, clique em "Cadastrar" para criar uma nova conta.
+    2. Faça login com seu novo usuário.
+    3. O sistema abrirá o modo "Visita Virtual".
+    4. Você verá uma lista rolavel (scroll) com tópicos informativos sobre
+       cada animal (Apelido, Espécie, Curiosidades), sem acesso a botões de
+       edição ou dados sensíveis.
+
+================================================================================
+Desenvolvido como Projeto Final de Python e Banco de Dados - 2025
+Copyright to Marcos Gustavo
+================================================================================
